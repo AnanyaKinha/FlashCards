@@ -38,7 +38,7 @@ The app is built using **React.js** for the frontend and uses **Appwrite** for b
 
 
 ## **System Architecture**
-![System Architecture Diagram](images\SysArch.png)
+![System Architecture Diagram](https://github.com/AnanyaKinha/FlashCards/blob/main/images/SysArch.png?raw=true)
 
 The application follows a client-server architecture with the following flow:
 1. **User** interacts with the web app through a browser.
