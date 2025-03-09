@@ -1,0 +1,75 @@
+{
+    "Java": [
+        {"q": "What is JVM?", "a": "Java Virtual Machine"},
+        {"q": "What is an interface?", "a": "A contract for classes to implement"},
+        {"q": "What is a constructor in Java?", "a": "A special method used to initialize objects"},
+        {"q": "What is the difference between HashMap and Hashtable?", "a": "HashMap is non-synchronized, Hashtable is synchronized"},
+        {"q": "What is garbage collection in Java?", "a": "The process of automatically freeing up memory by destroying unused objects"},
+        {"q": "What is the difference between JDK, JRE, and JVM?", "a": "JDK contains JRE and development tools, JRE contains JVM and libraries, JVM runs Java programs"},
+        {"q": "What is method overloading?", "a": "Defining multiple methods with the same name but different parameters"},
+        {"q": "What is method overriding?", "a": "Redefining a parent class method in a subclass"},
+        {"q": "What is a lambda expression?", "a": "A concise way to express instances of single-method interfaces (functional interfaces)"},
+        {"q": "What is the 'final' keyword in Java?", "a": "Used to declare constants, prevent method overriding, or inheritance"}
+    ],
+    "Low Level System Design": [
+        {"q": "What is a singleton design pattern?", "a": "A pattern ensuring only one instance of a class exists"},
+        {"q": "What is a factory design pattern?", "a": "A pattern to create objects without specifying the exact class"},
+        {"q": "What is dependency injection?", "a": "A design pattern to provide dependencies to a class from outside"},
+        {"q": "What is a cache and where is it used?", "a": "A temporary storage to reduce data access time, used in databases, APIs, etc."},
+        {"q": "What is a database connection pool?", "a": "A cache of database connections for re-use to improve performance"},
+        {"q": "What is a load balancer?", "a": "A device/software to distribute traffic among multiple servers"},
+        {"q": "What is a message queue?", "a": "A form of asynchronous service-to-service communication"},
+        {"q": "What is the purpose of rate limiting?", "a": "To limit the number of requests a user can make in a given time"},
+        {"q": "What is eventual consistency?", "a": "A consistency model where data will eventually become consistent across systems"},
+        {"q": "What is a hash function in system design?", "a": "A function that maps input data to fixed-size values"}
+    ],
+    "OOP": [
+        {"q": "What is polymorphism?", "a": "Ability of a method to take different forms"},
+        {"q": "What is inheritance?", "a": "A mechanism where one class acquires properties of another"},
+        {"q": "What is encapsulation?", "a": "Hiding internal details of a class and only exposing necessary parts"},
+        {"q": "What is abstraction?", "a": "Hiding complex implementation and showing only essential details"},
+        {"q": "What is a class in OOP?", "a": "A blueprint for creating objects"},
+        {"q": "What is an object in OOP?", "a": "An instance of a class"},
+        {"q": "What is method overloading?", "a": "Having multiple methods with the same name but different parameters"},
+        {"q": "What is method overriding?", "a": "Redefining a parent class method in a subclass"},
+        {"q": "What is a constructor?", "a": "A special method to initialize an object"},
+        {"q": "What is the difference between abstraction and encapsulation?", "a": "Abstraction hides implementation, encapsulation hides data"}
+    ],
+    "Operating Systems": [
+        {"q": "What is a process?", "a": "A running instance of a program"},
+        {"q": "What is a thread?", "a": "A lightweight process within a process"},
+        {"q": "What is context switching?", "a": "The process of storing and restoring the state of a CPU when switching tasks"},
+        {"q": "What is virtual memory?", "a": "A memory management technique that gives an application the illusion of having more memory than available"},
+        {"q": "What is a deadlock?", "a": "A situation where two or more processes are blocked forever, waiting for each other"},
+        {"q": "What is paging in OS?", "a": "A memory management scheme that eliminates the need for contiguous allocation"},
+        {"q": "What is process scheduling?", "a": "Determining which process runs at any given time"},
+        {"q": "What is an interrupt?", "a": "A signal to the processor to handle an event"},
+        {"q": "What is a file system?", "a": "A method to organize and store data on a storage device"},
+        {"q": "What is thrashing?", "a": "Excessive paging that leads to reduced performance"}
+    ],
+    "Linux": [
+        {"q": "What is the command to list all files in a directory?", "a": "`ls`"},
+        {"q": "How to see currently running processes?", "a": "`ps` or `top`"},
+        {"q": "What is the command to create a new directory?", "a": "`mkdir`"},
+        {"q": "What is the command to remove a file?", "a": "`rm <file>`"},
+        {"q": "How to see disk usage in Linux?", "a": "`df` or `du`"},
+        {"q": "How to change file permissions?", "a": "`chmod`"},
+        {"q": "What is the command to find a file by name?", "a": "`find`"},
+        {"q": "What is the root user in Linux?", "a": "The superuser with full administrative privileges"},
+        {"q": "How to display the contents of a file?", "a": "`cat <file>` or `less <file>`"},
+        {"q": "How to terminate a process by PID?", "a": "`kill <PID>`"}
+    ],
+    "High Level System Design": [
+        {"q": "What is a microservice architecture?", "a": "An architecture where a system is built as a set of small, independent services"},
+        {"q": "What is horizontal scaling?", "a": "Increasing capacity by adding more servers"},
+        {"q": "What is vertical scaling?", "a": "Increasing capacity by adding more resources to an existing server"},
+        {"q": "What is a load balancer?", "a": "A component that distributes incoming network traffic across multiple servers"},
+        {"q": "What is a CDN (Content Delivery Network)?", "a": "A network of servers to deliver content faster by reducing latency"},
+        {"q": "What is sharding?", "a": "Splitting a large database into smaller, more manageable parts"},
+        {"q": "What is eventual consistency?", "a": "A consistency model where data eventually becomes consistent"},
+        {"q": "What is a monolith architecture?", "a": "A single, unified application that handles all business logic"},
+        {"q": "What is API Gateway?", "a": "A server that acts as an entry point for microservices"},
+        {"q": "What is a message broker?", "a": "A middleware that helps services communicate asynchronously"}
+    ]
+}
+

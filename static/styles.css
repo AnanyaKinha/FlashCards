@@ -1,0 +1,112 @@
+/* Import Merriweather Font */
+@import url('https://fonts.googleapis.com/css2?family=Merriweather:wght@300;400;700&display=swap');
+
+/* General Page Styling */
+body {
+    font-family: 'Merriweather', serif;
+    background-color: #0D1B2A; /* Deep Midnight Blue */
+    color: white;
+    text-align: center;
+    margin: 0;
+    padding: 20px;
+}
+
+/* Title */
+h1 {
+    font-size: 2.5rem;
+    font-weight: bold;
+    margin-bottom: 20px;
+}
+
+/* Dropdown Container */
+#topicSelectContainer {
+    display: inline-block;
+    position: relative;
+    background-color: white;
+    border-radius: 25px;
+    padding: 8px 20px;
+    margin-bottom: 20px;
+}
+
+/* Styled Dropdown */
+#topicSelect {
+    font-family: 'Merriweather', serif;
+    font-size: 1rem;
+    padding: 10px 20px;
+    border: none;
+    outline: none;
+    cursor: pointer;
+    background: transparent;
+    color: #0D1B2A;
+    font-weight: bold;
+}
+
+/* Dropdown Arrow */
+#topicSelectContainer::after {
+    content: '▼';
+    font-size: 1rem;
+    position: absolute;
+    right: 15px;
+    top: 50%;
+    transform: translateY(-50%);
+    color: #0D1B2A;
+}
+
+/* Buttons */
+button {
+    font-family: 'Merriweather', serif;
+    background: linear-gradient(45deg, #FFCC00, #FFA500);
+    color: #0D1B2A;
+    font-size: 1.1rem;
+    font-weight: bold;
+    border: none;
+    padding: 12px 25px;
+    border-radius: 25px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    box-shadow: 0px 4px 8px rgba(255, 204, 0, 0.4);
+}
+
+button:hover {
+    background: linear-gradient(45deg, #FFD700, #FF8C00);
+    transform: scale(1.05);
+}
+
+/* Flashcard Styling */
+#flashcard {
+    display: none;
+    background-color: white;
+    color: #0D1B2A;
+    font-family: 'Merriweather', serif;
+    width: 70%;
+    max-width: 600px;
+    margin: 20px auto;
+    padding: 40px;
+    border-radius: 15px;
+    box-shadow: 0px 6px 12px rgba(255, 255, 255, 0.2);
+    font-size: 1.6rem;
+    font-weight: bold;
+    text-align: center;
+}
+
+/* Input Field */
+#userAnswer {
+    font-family: 'Merriweather', serif;
+    margin-top: 15px;
+    padding: 12px;
+    font-size: 1.2rem;
+    border-radius: 8px;
+    border: 2px solid #0D1B2A;
+    width: 80%;
+    text-align: center;
+}
+
+/* Answer Styling */
+#correctAnswer {
+    font-family: 'Merriweather', serif;
+    font-size: 1.4rem;
+    font-weight: bold;
+    color: #FFD700;
+    margin-top: 20px;
+}
+

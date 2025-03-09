@@ -1,0 +1,499 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ananya's Flashcards</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --background: #7f2a53;
+            --background-light: #da7e8b;
+            --primary: #9e5785; 
+            --primary-light: #f1ecf1;
+            --primary-dark: #ba70a1;
+            --white: #f3e8dd;
+            --gray-100: #0c0c0c;
+            --gray-200: #090000;
+            --gray-300: #e3c0a8;
+            --gray-700: #7f2a53;
+            --gray-800: #461d3b;
+            --success: #2f3150;
+            --error: #df1033;
+            --shadow-sm: 0 1px 3px 0 rgba(0, 0, 0, 0.2);
+            --shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.3), 0 2px 4px -1px rgba(0, 0, 0, 0.2);
+            --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.4), 0 4px 6px -2px rgba(0, 0, 0, 0.2);
+            --card-shadow: 0 8px 24px rgba(0, 0, 0, 0.4);
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Poppins', sans-serif;
+        }
+        
+        body {
+            font-family: 'Merriweather', sans-serif;
+            background-color: var(--background);
+            color: var(--white);
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding: 32px 16px;
+        }
+        
+        header {
+            width: 100%;
+            max-width: 700px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            margin-bottom: 20px;
+        }
+        
+        h1 {
+            font-size: 32px;
+            font-weight: 700;
+            margin-bottom: 8px;
+            color: var(--white);
+            letter-spacing: -0.025em;
+        }
+        
+        .subtitle {
+            font-size: 16px;
+            color: var(--gray-300);
+            margin-bottom: 32px;
+            font-weight: 400;
+            text-align: center;
+        }
+        
+        .controls {
+            width: 100%;
+            max-width: 700px;
+            display: flex;
+            gap: 16px;
+            justify-content: center;
+            flex-wrap: wrap;
+            margin-bottom: 40px;
+        }
+        
+        .select-wrapper {
+            position: relative;
+            min-width: 220px;
+        }
+        
+        select {
+            appearance: none;
+            background-color: var(--background-light);
+            border: 1px solid var(--gray-700);
+            border-radius: 10px;
+            padding: 14px 18px;
+            padding-right: 40px;
+            font-size: 15px;
+            width: 100%;
+            color: var(--white);
+            cursor: pointer;
+            font-weight: 500;
+            box-shadow: var(--shadow-sm);
+            transition: all 0.2s ease;
+        }
+        
+        select:focus {
+            outline: none;
+            border-color: var(--primary-light);
+            box-shadow: 0 0 0 3px rgba(99, 102, 241, 0.3);
+        }
+        
+        .select-wrapper::after {
+            content: '';
+            position: absolute;
+            right: 16px;
+            top: 50%;
+            transform: translateY(-50%);
+            width: 12px;
+            height: 12px;
+            background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 20 20' fill='%23D1D5DB'%3E%3Cpath fill-rule='evenodd' d='M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z' clip-rule='evenodd'/%3E%3C/svg%3E");
+            pointer-events: none;
+        }
+        
+        button {
+            background-color: var(--primary);
+            color: white;
+            border: none;
+            border-radius: 10px;
+            padding: 14px 28px;
+            font-size: 15px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            box-shadow: var(--shadow);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        
+        button:hover {
+            background-color: var(--primary-dark);
+            transform: translateY(-2px);
+            box-shadow: var(--shadow-lg);
+        }
+        
+        button:active {
+            transform: translateY(0);
+        }
+        
+        .flashcard-container {
+            width: 100%;
+            max-width: 700px;
+            perspective: 1000px;
+            margin-bottom: 30px;
+            height: 320px;
+        }
+        
+        .flashcard {
+            position: relative;
+            width: 100%;
+            height: 100%;
+            transition: transform 0.8s;
+            transform-style: preserve-3d;
+            cursor: pointer;
+            display: none;
+        }
+        
+        .flashcard.flipped {
+            transform: rotateY(180deg);
+        }
+        
+        .flashcard-front, .flashcard-back {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            -webkit-backface-visibility: hidden;
+            backface-visibility: hidden;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            background-color: white;
+            border-radius: 20px;
+            box-shadow: var(--card-shadow);
+            padding: 40px 32px;
+            transition: box-shadow 0.3s ease;
+        }
+        
+        .flashcard-front:hover, .flashcard-back:hover {
+            box-shadow: 0 12px 30px rgba(0, 0, 0, 0.5);
+        }
+        
+        .flashcard-back {
+            transform: rotateY(180deg);
+        }
+        
+        #questionText {
+            font-size: 28px;
+            font-weight: 600;
+            color: var(--gray-800);
+            line-height: 1.4;
+            text-align: center;
+        }
+        
+        #answerText {
+            font-size: 28px;
+            font-weight: 600;
+            color: var(--success);
+            line-height: 1.4;
+            text-align: center;
+        }
+        
+        .answer-container {
+            width: 100%;
+            max-width: 700px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            margin-top: 20px;
+            margin-bottom: 40px;
+        }
+        
+        #userAnswer {
+            width: 100%;
+            max-width: 400px;
+            padding: 16px 20px;
+            border: 2px solid var(--gray-700);
+            background-color: var(--background-light);
+            color: var(--white);
+            border-radius: 12px;
+            font-size: 16px;
+            transition: all 0.2s ease;
+            margin-bottom: 20px;
+            text-align: center;
+        }
+        
+        #userAnswer:focus {
+            outline: none;
+            border-color: var(--primary);
+            box-shadow: 0 0 0 3px rgba(99, 102, 241, 0.3);
+        }
+        
+        #userAnswer::placeholder {
+            color: var(--gray-300);
+            opacity: 0.7;
+        }
+        
+        .action-button {
+            background: linear-gradient(135deg, var(--primary), var(--primary-dark));
+        }
+        
+        .next-button {
+            background: linear-gradient(135deg, var(--success), #b10a42);
+            display: none;
+        }
+        
+        .progress-container {
+            width: 100%;
+            max-width: 700px;
+            background-color: var(--background-light);
+            border-radius: 16px;
+            padding: 20px 24px;
+            box-shadow: var(--shadow);
+        }
+        
+        .progress-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 16px;
+        }
+        
+        .progress-title {
+            font-size: 16px;
+            font-weight: 600;
+            color: var(--white);
+        }
+        
+        .progress-stats {
+            font-size: 14px;
+            color: var(--gray-300);
+        }
+        
+        .progress-bar {
+            width: 100%;
+            height: 10px;
+            background-color: var(--gray-700);
+            border-radius: 5px;
+            overflow: hidden;
+        }
+        
+        .progress-fill {
+            height: 100%;
+            width: 0%;
+            background: linear-gradient(90deg, var(--primary), var(--primary-light));
+            border-radius: 5px;
+            transition: width 0.3s ease;
+        }
+        
+        #correctAnswer {
+            margin-top: 20px;
+            color: var(--success);
+            font-weight: 500;
+            display: none;
+        }
+        
+        @media (max-width: 640px) {
+            body {
+                padding: 24px 16px;
+            }
+            
+            h1 {
+                font-size: 28px;
+            }
+            
+            .subtitle {
+                font-size: 14px;
+                margin-bottom: 24px;
+            }
+            
+            .flashcard-container {
+                height: 260px;
+            }
+            
+            #questionText, #answerText {
+                font-size: 22px;
+            }
+            
+            .flashcard-front, .flashcard-back {
+                padding: 30px 20px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>Ananya's Flashcards</h1>
+        <p class="subtitle">My notes for all things computer science</p>
+    </header>
+    
+    <div class="controls">
+        <div class="select-wrapper">
+            <select id="topicSelect">
+                <!-- Will be populated dynamically from the server -->
+            </select>
+        </div>
+        <button onclick="loadQuestion()">Start Learning</button>
+    </div>
+    
+    <div class="flashcard-container">
+        <div class="flashcard" id="flashcard">
+            <div class="flashcard-front">
+                <p id="questionText">What is the time complexity of quicksort in the average case?</p>
+            </div>
+            <div class="flashcard-back">
+                <p id="answerText">O(n log n)</p>
+            </div>
+        </div>
+    </div>
+    
+    <div class="answer-container">
+        <input type="text" id="userAnswer" placeholder="Type your answer here">
+        <button class="action-button" id="showAnswerBtn" onclick="revealAnswer()">Show Answer</button>
+        <button class="next-button" id="nextCardBtn" onclick="nextCard()">Next Card</button>
+        <div id="correctAnswer"></div>
+    </div>
+    
+    <div class="progress-container">
+        <div class="progress-header">
+            <div class="progress-title">Your Progress</div>
+            <div class="progress-stats" id="progressStats">0/0 Cards</div>
+        </div>
+        <div class="progress-bar">
+            <div class="progress-fill" id="progressFill"></div>
+        </div>
+    </div>
+    
+    <script>
+        // Track the current progress
+        let currentCardIndex = 0;
+        let totalCards = 0;
+        let currentTopic = "";
+        let questionBank = {};
+        
+        async function loadTopics() {
+            try {
+                const res = await fetch("/topics");
+                const data = await res.json();
+                const select = document.getElementById("topicSelect");
+                select.innerHTML = data.topics.map(topic => `<option value="${topic}">${topic}</option>`).join("");
+                
+                // Set the current topic from the select
+                if (data.topics.length > 0) {
+                    currentTopic = data.topics[0];
+                }
+            } catch (error) {
+                console.error("Failed to load topics:", error);
+                alert("Failed to load topics. Please try again later.");
+            }
+        }
+        
+        async function loadQuestion() {
+            try {
+                currentTopic = document.getElementById("topicSelect").value;
+                const res = await fetch(`/question?topic=${currentTopic}`);
+                const data = await res.json();
+                
+                if (data.error) {
+                    alert(data.error);
+                    return;
+                }
+                
+                // Get the total number of questions for this topic
+                if (data.totalQuestions) {
+                    totalCards = data.totalQuestions;
+                }
+                
+                document.getElementById("questionText").innerText = data.question;
+                document.getElementById("flashcard").style.display = "block";
+                document.getElementById("correctAnswer").style.display = "none";
+                document.getElementById("userAnswer").focus();
+                
+                // Reset for new question
+                document.getElementById("flashcard").classList.remove("flipped");
+                document.getElementById("showAnswerBtn").style.display = "flex";
+                document.getElementById("nextCardBtn").style.display = "none";
+                document.getElementById("userAnswer").value = "";
+                
+                // Update progress
+                updateProgress();
+            } catch (error) {
+                console.error("Failed to load question:", error);
+                alert("Failed to load question. Please try again later.");
+            }
+        }
+        
+        async function revealAnswer() {
+            try {
+                const topic = document.getElementById("topicSelect").value;
+                const question = document.getElementById("questionText").innerText;
+                const res = await fetch("/answer", {
+                    method: "POST",
+                    headers: { "Content-Type": "application/json" },
+                    body: JSON.stringify({ topic, question })
+                });
+                
+                const data = await res.json();
+                if (data.error) {
+                    alert(data.error);
+                    return;
+                }
+                
+                // Update answer text on the back of the card
+                document.getElementById("answerText").innerText = data.answer;
+                
+                // Also show answer text below the card
+                document.getElementById("correctAnswer").innerText = "Answer: " + data.answer;
+                document.getElementById("correctAnswer").style.display = "block";
+                
+                // Flip the card
+                document.getElementById("flashcard").classList.add("flipped");
+                document.getElementById("showAnswerBtn").style.display = "none";
+                document.getElementById("nextCardBtn").style.display = "flex";
+                
+                // Increment current card index
+                currentCardIndex++;
+                
+                // Update progress
+                updateProgress();
+            } catch (error) {
+                console.error("Failed to reveal answer:", error);
+                alert("Failed to get answer. Please try again later.");
+            }
+        }
+        
+        function nextCard() {
+            loadQuestion();
+        }
+        
+        function updateProgress() {
+            const progressStats = document.getElementById("progressStats");
+            const progressFill = document.getElementById("progressFill");
+            
+            // Update the progress text
+            progressStats.innerText = `${currentCardIndex}/${totalCards} Cards`;
+            
+            // Update the progress bar
+            let percentage = 0;
+            if (totalCards > 0) {
+                percentage = (currentCardIndex / totalCards) * 100;
+            }
+            progressFill.style.width = `${percentage}%`;
+        }
+        
+        // Initialize the app when the page loads
+        window.onload = function() {
+            loadTopics();
+        };
+    </script>
+</body>
+</html>
